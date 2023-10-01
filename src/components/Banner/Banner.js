@@ -1,10 +1,12 @@
 import React from 'react';
 import './Banner.css'; // Import the CSS file for styling
 
-const Banner = ({ imageSrc, text,text1 }) => {
+const Banner = ({ imageSrc, text, text1 }) => {
   const bannerStyle = {
+    backgroundColor: '#004d40', // Dark green color
     backgroundImage: `url(${imageSrc})`,
     filter: 'brightness(0.7) contrast(1.2) hue-rotate(45deg)', // Apply filters to change the photo color
+    
   };
 
   return (
