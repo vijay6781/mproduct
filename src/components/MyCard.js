@@ -1,22 +1,67 @@
 import React from 'react';
+import { FaHome, FaRupeeSign,FaBusinessTime } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; 
+import { BsFillBuildingsFill,BsBuildingFillUp } from 'react-icons/bs';
 
-const LoanCard = ({ title, description }) => {
-    return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg mx-4 mb-8">
-            <div className="px-6 py-4">
-                <h2 className="font-bold text-xl mb-2 text-center">{title}</h2>
-                {/* <div className="flex justify-center mb-4">
-                    <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/>
-                    </svg>
-                </div> */}
-                <p className="text-gray-700 text-base text-center">{description}</p>
-            </div>
-            <div className="px-6 pb-4 text-center">
-                <button className="btn">Apply</button>
-            </div>
+
+const Card = ({ title, description, icon }) => {
+    const navigate =useNavigate();
+  const handleApplyClick = () => {
+    navigate('/apply');
+    // Write your apply button click logic here
+  };
+
+  const renderIcon = () => {
+    switch (icon) {
+      case 'home':
+        return <FaHome className="text-xl absolute top-5 right-5" />;
+      case 'rupee':
+        return <FaRupeeSign className="text-xl absolute top-5 right-5" />;
+      case 'business':
+        return <BsFillBuildingsFill className="text-xl absolute top-5 right-5" />;
+      case 'lap':
+        return <BsBuildingFillUp className="text-xl absolute top-5 right-5" />;  
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="max-w-sm w-80 mx-auto bg-white shadow-lg rounded-2xl mt-5 overflow-hidden mb-4 text-center">
+      <div className="px-6 py-4 relative">
+        {renderIcon()}
+        <div className="mb-4">
+          <h2 className="text-xl font-bold">{title}</h2>
         </div>
-    );
-}
+        <p className="text-gray-700 text-base">{description}</p>
+      </div>
+      <div className="px-6 py-4 flex justify-center">
+        <button 
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          onClick={handleApplyClick}
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default LoanCard;
+const CardList = () => {
+  const cardsData = [
+    { title: 'Personal loan', description: 'Get personal loan at low interest within hours', icon: 'rupee' },
+    { title: 'Home loan', description: 'Get home loan at low interest rate ', icon: 'home' },
+    { title: 'Business Loan', description: 'Get business loan with low interst rate', icon: 'business' },
+    { title: 'LAP loan', description: 'Loan agains property with low interest rate ', icon: 'lap' },
+  ];
+
+  return (
+    <div className="flex flex-wrap justify-center">
+      {cardsData.map((card, index) => (
+        <Card key={index} title={card.title} description={card.description} icon={card.icon} />
+      ))}
+    </div>
+  );
+};
+
+export default CardList;

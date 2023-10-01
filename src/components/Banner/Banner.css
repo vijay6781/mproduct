@@ -2,40 +2,49 @@
 
 /* Banner container */
 .banner-container {
-    position: relative;
-  }
-  
-  /* Banner text */
+  position: relative;
+}
+
+/* Banner text with gradient color */
+.banner-text {
+  position: absolute;
+  top: 15%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* Apply gradient background to text */
+  background-image: linear-gradient(to right, hsl(309, 97%, 49%), #f7ff02);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Make text transparent */
+}
+
+/* Banner text1 */
+.banner-text1 {
+  position: absolute;
+  top: 70%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.0rem;
+  font-weight: bold;
+  /* Apply gradient background to text */
+  background-image: linear-gradient(to right, #1c04f4, #02ffab);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Make text transparent */
+}
+
+/* Additional Tailwind CSS styles */
+@media (min-width: 768px) {
   .banner-text {
-    position: absolute;
-    top: 20%;
-    left: 1rem;
-    transform: translateY(-50%);
-    color: rgb(251, 251, 251);
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  .banner-text1{
-    position: absolute;
-    top: 70%;
-    left: 1rem;
-    transform: translateY(-50%);
-    color: linear-gradient(to right, #04c8f4, #02ffab);
-    font-size: 1.0rem;
-    font-weight: bold;
-  }
-  
-  /* Additional Tailwind CSS styles */
-  @media (min-width: 768px) {
-    .banner-text {
       font-size: 2rem;
       left: 2rem;
-      top:70%;
-    }
-    .banner-text1 {
+      top: 70%;
+  }
+  .banner-text1 {
       font-size: 2rem;
       left: 2rem;
-      top:80%;
-    }
+      top: 80%;
   }
-  
+}
