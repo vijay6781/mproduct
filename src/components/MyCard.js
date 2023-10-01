@@ -1,7 +1,8 @@
 import React from 'react';
-import { FaHome, FaRupeeSign,FaBusinessTime } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; 
 import { BsFillBuildingsFill,BsBuildingFillUp } from 'react-icons/bs';
+import {FaHandHoldingDollar} from 'react-icons/fa6'
 
 
 const Card = ({ title, description, icon }) => {
@@ -14,13 +15,13 @@ const Card = ({ title, description, icon }) => {
   const renderIcon = () => {
     switch (icon) {
       case 'home':
-        return <FaHome className="text-xl absolute top-5 right-5" />;
+        return <FaHome className="text-3xl text-teal-200  absolute top-5 right-5" />;
       case 'rupee':
-        return <FaRupeeSign className="text-xl absolute top-5 right-5" />;
+        return <FaHandHoldingDollar className=" text-4xl text-green-200  absolute top-5 right-5" />;
       case 'business':
-        return <BsFillBuildingsFill className="text-xl absolute top-5 right-5" />;
+        return <BsFillBuildingsFill className="text-3xl text-teal-200  absolute top-5 right-5" />;
       case 'lap':
-        return <BsBuildingFillUp className="text-xl absolute top-5 right-5" />;  
+        return <BsBuildingFillUp className="text-3xl text-teal-200  absolute top-5 right-5" />;  
       default:
         return null;
     }
