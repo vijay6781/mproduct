@@ -1,11 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './Apply.css';
-import { useNavigate } from 'react-router-dom'; 
-import {firebaseConfig} from '../Authentication/firebase.js'
-
+import { useNavigate } from 'react-router-dom';
+import { firebaseConfig } from '../Authentication/firebase.js'
 
 firebase.initializeApp(firebaseConfig);
 
@@ -18,10 +17,32 @@ function Apply() {
   const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false); // Track form submission
+  const [mobileError, setMobileError] = useState('');
+  const [loanAmountError, setLoanAmountError] = useState('');
+  const [emailError, setEmailError] = useState('');
+
   const navigate = useNavigate(); // Get the history object from React Router
 
   const handleApply = async () => {
     try {
+      // Reset errors
+      setMobileError('');
+      setLoanAmountError('');
+      setEmailError('');
+
+      if (!mobileNumber) {
+        setMobileError('Please fill in the Mobile Number');
+        return;
+      }
+      if (!loanAmount) {
+        setLoanAmountError('Please fill in the loan amount');
+        return;
+      }
+      if (!email) {
+        setEmailError('Please fill in the Email Address');
+        return;
+      }
+
       // Create a document in Firestore with the loan application data
       await firestore.collection('loanApplications').add({
         name,
@@ -43,14 +64,14 @@ function Apply() {
     if (submitted) {
       const redirectTimeout = setTimeout(() => {
         navigate('/'); // Redirect to home page
-      }, 4000); // Wait for 3 seconds before redirecting
+      }, 3000); // Wait for 3 seconds before redirecting
 
       return () => clearTimeout(redirectTimeout);
     }
   }, [submitted, navigate]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex  items-center justify-center h-screen bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
@@ -74,7 +95,9 @@ function Apply() {
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
               className="apply-input"
+              required
             />
+            {mobileError && <div className="error-message">{mobileError}</div>}
             <label className="apply-label">Loan Amount:</label>
             <input
               type="number"
@@ -82,6 +105,7 @@ function Apply() {
               onChange={(e) => setLoanAmount(e.target.value)}
               className="apply-input"
             />
+            {loanAmountError && <div className="error-message">{loanAmountError}</div>}
             <label className="apply-label">Company Name:</label>
             <input
               type="text"
@@ -95,7 +119,9 @@ function Apply() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="apply-input"
+              required
             />
+            {emailError && <div className="error-message">{emailError}</div>}
             <button onClick={handleApply} className="apply-button">
               Apply
             </button>
@@ -107,5 +133,3 @@ function Apply() {
 }
 
 export default Apply;
-
-

@@ -99,6 +99,10 @@ const Footer = () => {
           Barbie Loan
         </a>
       </div>
+      <div className="flex items-center justify-center space-x-2">
+      <span className="text-sm ">Built with love, made in India</span>
+    <img src={require('../../Assests/Image/Iflag.png')} alt="Indian Flag" className="h-3 w-3" />
+  </div>
     </footer>
   );
 };
