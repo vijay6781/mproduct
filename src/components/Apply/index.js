@@ -44,13 +44,13 @@ function Apply() {
       }
 
       // Create a document in Firestore with the loan application data
-      await firestore.collection('loanApplications').add({
+      await firestore.collection('loan').add({
         name,
         mobileNumber,
         loanAmount: parseFloat(loanAmount),
         companyName,
         email,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        Date: firebase.firestore.FieldValue.serverTimestamp(),
       });
 
       setSubmitted(true); // Mark form as submitted

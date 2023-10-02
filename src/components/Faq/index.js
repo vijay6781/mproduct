@@ -24,7 +24,7 @@ const LoanFAQSection = () => {
 
   return (
     <div className="bg-gradient-to-r from-gray-300 via-gray-200 to-cyan-600 mt-1 mb-1 text-black p-8 text-center relative">
-      <h2 className="text-4xl font-bold mb-6">Frequently Asked Questions</h2>
+      <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
       <div className="text-left">
         {faqs.map((item, index) => (
           <div key={index} className="mb-4">
