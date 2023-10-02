@@ -30,7 +30,7 @@ function About() {
           <FaHeart className="text-5xl mb-4 text-red-400" />
           <h2 className="text-2xl font-bold mb-2">Empowerment</h2>
           <p>
-            We're not just providing loans; we're on a mission to empower you towards financial prosperity. Join us in shaping a brighter future.
+            We're not just providing loans; we're on a mission to empower you towards financial prosperity.
           </p>
         </div>
       </div>
