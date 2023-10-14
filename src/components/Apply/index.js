@@ -4,7 +4,8 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './Apply.css';
 import { useNavigate } from 'react-router-dom';
-import { firebaseConfig } from '../Authentication/firebase.js'
+import { firebaseConfig } from '../Authentication/firebase.js';
+import predefinedLoanAmounts from '../../constants/LoanAmount'
 
 firebase.initializeApp(firebaseConfig);
 
@@ -23,32 +24,29 @@ function Apply() {
 
   const navigate = useNavigate(); // Get the history object from React Router
 
-  const predefinedLoanAmounts = [
-    '1 Lakh',
-    '2 Lakhs',
-    '3 Lakhs',
-    '4 Lakhs',
-    '5 Lakhs',
-    '6 Lakhs',
-    '7 Lakhs',
-    '8 Lakhs',
-    '9 Lakhs',
-    '10 Lakhs',
-    '20 Lakhs',
-    '30 Lakhs',
-    '40 Lakhs',
-    '50 Lakhs',
-    '60 Lakhs',
-    '70 Lakhs',
-    '80 Lakhs',
-    '90 Lakhs',
-    '1 Crore'
-];
+  // const predefinedLoanAmounts = ['1 Lakh', '2 Lakhs', '3 Lakhs', '4 Lakhs'];
 
-  // Filter the predefined loan amounts based on user input
-  const filteredLoanAmounts = predefinedLoanAmounts.filter(amount =>
-    amount.toString().includes(loanAmount)
-  );
+  // Add state variables for loan amount suggestions and selected loan amount
+  const [selectedLoanAmount, setSelectedLoanAmount] = useState('');
+  const [filteredLoanAmounts, setFilteredLoanAmounts] = useState([]);
+
+  // Create function to handle loan amount changes
+  const handleLoanAmountChange = (input) => {
+    const inputValue = input.toLowerCase();
+    const filtered = inputValue
+      ? predefinedLoanAmounts.filter(
+          (amount) => amount.toLowerCase().startsWith(inputValue)
+        )
+      : [];
+    setFilteredLoanAmounts(filtered);
+    setSelectedLoanAmount(input);
+  };
+
+  // Create function to handle loan amount selection
+  const handleLoanAmountSelect = (amount) => {
+    setSelectedLoanAmount(amount);
+    setFilteredLoanAmounts([]);
+  };
 
   const handleApply = async () => {
     try {
@@ -61,7 +59,7 @@ function Apply() {
         setMobileError('Please fill in the Mobile Number');
         return;
       }
-      if (!loanAmount) {
+      if (!selectedLoanAmount) {
         setLoanAmountError('Please fill in the loan amount');
         return;
       }
@@ -74,7 +72,7 @@ function Apply() {
       await firestore.collection('loan').add({
         name,
         mobileNumber,
-        loanAmount: parseFloat(loanAmount),
+        loanAmount: selectedLoanAmount,
         email,
         incomeSource,
         Date: firebase.firestore.FieldValue.serverTimestamp(),
@@ -90,7 +88,7 @@ function Apply() {
   useEffect(() => {
     if (submitted) {
       const redirectTimeout = setTimeout(() => {
-        navigate('/'); // Redirect to home page
+        navigate('/'); // Redirect to the home page
       }, 3000); // Wait for 3 seconds before redirecting
 
       return () => clearTimeout(redirectTimeout);
@@ -98,7 +96,7 @@ function Apply() {
   }, [submitted, navigate]);
 
   return (
-    <div className="flex  items-center justify-center h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex items-center justify-center h-screen bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
@@ -113,7 +111,7 @@ function Apply() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="apply-input" 
+              className="apply-input"
               required
             />
             <label className="apply-label">Mobile Number:</label>
@@ -127,25 +125,26 @@ function Apply() {
             {mobileError && <div className="error-message">{mobileError}</div>}
             <label className="apply-label">Loan Amount:</label>
             <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
+              type="text" // Change type to text to allow for suggestions
+              value={selectedLoanAmount}
+              onChange={(e) => handleLoanAmountChange(e.target.value)}
               className="apply-input"
             />
-            {loanAmountError && <div className="error-message">{loanAmountError}</div>}
+            {loanAmountError && (
+              <div className="error-message">{loanAmountError}</div>
+            )}
 
-            {loanAmount.length > 0 && filteredLoanAmounts.length > 0 && (
-        <div className="loan-amount-suggestions text-white">
-          <ul>
-            {filteredLoanAmounts.map((amount, index) => (
-              <li key={index} onClick={() => setLoanAmount(amount)}>
-                {amount}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
+            {selectedLoanAmount.length > 0 && filteredLoanAmounts.length > 0 && (
+              <div className="loan-amount-suggestions text-white">
+                <ul>
+                  {filteredLoanAmounts.map((amount, index) => (
+                    <li key={index} onClick={() => handleLoanAmountSelect(amount)}>
+                      {amount}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <label className="apply-label">Email Id:</label>
             <input
@@ -157,15 +156,15 @@ function Apply() {
             />
             {emailError && <div className="error-message">{emailError}</div>}
             <label className="apply-label">Income Source:</label>
-<select
-  value={incomeSource}
-  onChange={(e) => setIncomeSource(e.target.value)}
-  className="apply-input"
->
-  <option value="">Select...</option>
-  <option value="salary">Salary</option>
-  <option value="business">Business</option>
-</select>
+            <select
+              value={incomeSource}
+              onChange={(e) => setIncomeSource(e.target.value)}
+              className="apply-input"
+            >
+              <option value="">Select...</option>
+              <option value="salary">Salary</option>
+              <option value="business">Business</option>
+            </select>
 
             <button onClick={handleApply} className="apply-button">
               Apply
