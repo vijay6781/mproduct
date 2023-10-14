@@ -129,6 +129,7 @@ function Apply() {
               value={selectedLoanAmount}
               onChange={(e) => handleLoanAmountChange(e.target.value)}
               className="apply-input"
+              placeholder=' Rs in Lakh'
             />
             {loanAmountError && (
               <div className="error-message">{loanAmountError}</div>
