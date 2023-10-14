@@ -23,6 +23,33 @@ function Apply() {
 
   const navigate = useNavigate(); // Get the history object from React Router
 
+  const predefinedLoanAmounts = [
+    '1 Lakh',
+    '2 Lakhs',
+    '3 Lakhs',
+    '4 Lakhs',
+    '5 Lakhs',
+    '6 Lakhs',
+    '7 Lakhs',
+    '8 Lakhs',
+    '9 Lakhs',
+    '10 Lakhs',
+    '20 Lakhs',
+    '30 Lakhs',
+    '40 Lakhs',
+    '50 Lakhs',
+    '60 Lakhs',
+    '70 Lakhs',
+    '80 Lakhs',
+    '90 Lakhs',
+    '1 Crore'
+];
+
+  // Filter the predefined loan amounts based on user input
+  const filteredLoanAmounts = predefinedLoanAmounts.filter(amount =>
+    amount.toString().includes(loanAmount)
+  );
+
   const handleApply = async () => {
     try {
       // Reset errors
@@ -106,7 +133,20 @@ function Apply() {
               className="apply-input"
             />
             {loanAmountError && <div className="error-message">{loanAmountError}</div>}
-           
+
+            {loanAmount.length > 0 && filteredLoanAmounts.length > 0 && (
+        <div className="loan-amount-suggestions text-white">
+          <ul>
+            {filteredLoanAmounts.map((amount, index) => (
+              <li key={index} onClick={() => setLoanAmount(amount)}>
+                {amount}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+
             <label className="apply-label">Email Id:</label>
             <input
               type="email"
