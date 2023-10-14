@@ -71,7 +71,7 @@ function Apply() {
   }, [submitted, navigate]);
 
   return (
-    <div className="flex  items-center justify-center h-screen mt-11 mb-11 bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex  items-center justify-center h-screen bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
