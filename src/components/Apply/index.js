@@ -14,12 +14,12 @@ function Apply() {
   const [name, setName] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
-  const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false); // Track form submission
   const [mobileError, setMobileError] = useState('');
   const [loanAmountError, setLoanAmountError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [incomeSource, setIncomeSource] = useState('');
 
   const navigate = useNavigate(); // Get the history object from React Router
 
@@ -48,8 +48,8 @@ function Apply() {
         name,
         mobileNumber,
         loanAmount: parseFloat(loanAmount),
-        companyName,
         email,
+        incomeSource,
         Date: firebase.firestore.FieldValue.serverTimestamp(),
       });
 
@@ -71,7 +71,7 @@ function Apply() {
   }, [submitted, navigate]);
 
   return (
-    <div className="flex  items-center justify-center h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex  items-center justify-center h-screen mt-11 mb-11 bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
@@ -106,13 +106,7 @@ function Apply() {
               className="apply-input"
             />
             {loanAmountError && <div className="error-message">{loanAmountError}</div>}
-            <label className="apply-label">Company Name:</label>
-            <input
-              type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              className="apply-input"
-            />
+           
             <label className="apply-label">Email Id:</label>
             <input
               type="email"
@@ -122,6 +116,17 @@ function Apply() {
               required
             />
             {emailError && <div className="error-message">{emailError}</div>}
+            <label className="apply-label">Income Source:</label>
+<select
+  value={incomeSource}
+  onChange={(e) => setIncomeSource(e.target.value)}
+  className="apply-input"
+>
+  <option value="">Select...</option>
+  <option value="salary">Salary</option>
+  <option value="business">Business</option>
+</select>
+
             <button onClick={handleApply} className="apply-button">
               Apply
             </button>
