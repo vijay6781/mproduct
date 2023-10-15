@@ -5,32 +5,30 @@ import 'firebase/compat/firestore';
 import './Apply.css';
 import { useNavigate } from 'react-router-dom';
 import { firebaseConfig } from '../Authentication/firebase.js';
-import predefinedLoanAmounts from '../../constants/LoanAmount'
+import predefinedLoanAmounts from '../../constants/LoanAmount';
+import predefinedCities from '../../constants/Cities';
 
 firebase.initializeApp(firebaseConfig);
 
-const firestore = firebase.firestore(); // Get a reference to Firestore
+const firestore = firebase.firestore();
 
 function Apply() {
   const [name, setName] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false); // Track form submission
+  const [submitted, setSubmitted] = useState(false);
   const [mobileError, setMobileError] = useState('');
   const [loanAmountError, setLoanAmountError] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [emailError,setEmailError] = useState('');
   const [incomeSource, setIncomeSource] = useState('');
-
-  const navigate = useNavigate(); // Get the history object from React Router
-
-  // const predefinedLoanAmounts = ['1 Lakh', '2 Lakhs', '3 Lakhs', '4 Lakhs'];
-
-  // Add state variables for loan amount suggestions and selected loan amount
   const [selectedLoanAmount, setSelectedLoanAmount] = useState('');
   const [filteredLoanAmounts, setFilteredLoanAmounts] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [filteredCities, setFilteredCities] = useState([]);
 
-  // Create function to handle loan amount changes
+  const navigate = useNavigate();
+
   const handleLoanAmountChange = (input) => {
     const inputValue = input.toLowerCase();
     const filtered = inputValue
@@ -42,15 +40,29 @@ function Apply() {
     setSelectedLoanAmount(input);
   };
 
-  // Create function to handle loan amount selection
   const handleLoanAmountSelect = (amount) => {
     setSelectedLoanAmount(amount);
     setFilteredLoanAmounts([]);
   };
 
+  const handleCityChange = (input) => {
+    const inputValue = input.toLowerCase();
+    const filtered = inputValue
+      ? predefinedCities.filter(
+          (city) => city.toLowerCase().startsWith(inputValue)
+        )
+      : [];
+    setFilteredCities(filtered);
+    setSelectedCity(input);
+  };
+
+  const handleCitySelect = (city) => {
+    setSelectedCity(city);
+    setFilteredCities([]);
+  };
+
   const handleApply = async () => {
     try {
-      // Reset errors
       setMobileError('');
       setLoanAmountError('');
       setEmailError('');
@@ -67,36 +79,39 @@ function Apply() {
         setEmailError('Please fill in the Email Address');
         return;
       }
+      // if (!selectedCity) {
+      //   setCityError('Please select a city');
+      //   return;
+      // }
 
-      // Create a document in Firestore with the loan application data
       await firestore.collection('loan').add({
         name,
         mobileNumber,
         loanAmount: selectedLoanAmount,
         email,
         incomeSource,
+        city: selectedCity,
         Date: firebase.firestore.FieldValue.serverTimestamp(),
       });
 
-      setSubmitted(true); // Mark form as submitted
+      setSubmitted(true);
     } catch (error) {
       alert('Error: ' + error.message);
     }
   };
 
-  // Use useEffect to redirect after 3 seconds when submitted becomes true
   useEffect(() => {
     if (submitted) {
       const redirectTimeout = setTimeout(() => {
-        navigate('/'); // Redirect to the home page
-      }, 3000); // Wait for 3 seconds before redirecting
+        navigate('/');
+      }, 3000);
 
       return () => clearTimeout(redirectTimeout);
     }
   }, [submitted, navigate]);
 
   return (
-    <div className="flex items-center justify-center ml-1 mr-1 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex items-center justify-center ml-1 mr-1 mb-20 mt-1 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
@@ -125,7 +140,7 @@ function Apply() {
             {mobileError && <div className="error-message">{mobileError}</div>}
             <label className="apply-label">Loan Amount:</label>
             <input
-              type="text" // Change type to text to allow for suggestions
+              type="text"
               value={selectedLoanAmount}
               onChange={(e) => handleLoanAmountChange(e.target.value)}
               className="apply-input"
@@ -166,6 +181,26 @@ function Apply() {
               <option value="salary">Salary</option>
               <option value="business">Business</option>
             </select>
+
+            <label className="apply-label">City:</label>
+            <input
+              type="text"
+              value={selectedCity}
+              onChange={(e) => handleCityChange(e.target.value)}
+              className="apply-input"
+              placeholder="Enter City"
+            />
+            {selectedCity.length > 0 && filteredCities.length > 0 && (
+              <div className="city-suggestions text-white">
+                <ul>
+                  {filteredCities.map((city, index) => (
+                    <li key={index} onClick={() => handleCitySelect(city)}>
+                      {city}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <button onClick={handleApply} className="apply-button">
               Apply

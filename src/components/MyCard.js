@@ -27,7 +27,7 @@ const Card = ({ title, description, icon }) => {
     };
 
     return (
-        <div className="max-w-sm w-80 mx-auto bg-gray shadow-lg rounded-2xl mt-3 overflow-hidden mb-3 text-center transition-transform transform hover:scale-105">
+        <div className="w-80 mx-auto bg-gray shadow-lg rounded-2xl mt-4 overflow-hidden mb-4 text-center transition-transform transform hover:scale-105">
             <div className="px-6 py-4 relative">
                 {renderIcon()}
                 <div className="mb-4">
