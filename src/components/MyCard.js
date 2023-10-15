@@ -27,7 +27,7 @@ const Card = ({ title, description, icon }) => {
     };
 
     return (
-        <div className="max-w-sm w-80 mx-auto bg-white shadow-lg rounded-2xl mt-3 overflow-hidden mb-3 text-center transition-transform transform hover:scale-105">
+        <div className="max-w-sm w-80 mx-auto bg-gray shadow-lg rounded-2xl mt-3 overflow-hidden mb-3 text-center transition-transform transform hover:scale-105">
             <div className="px-6 py-4 relative">
                 {renderIcon()}
                 <div className="mb-4">
@@ -52,7 +52,7 @@ const CardList = () => {
         { title: 'Personal loan', description: 'Get personal loan at low interest within hours', icon: 'rupee' },
         { title: 'Home loan', description: 'choose from lowest interest available from dream home ', icon: 'home' },
         { title: 'Business Loan', description: 'Get business loan at best interest rate and expand your business ', icon: 'business' },
-        { title: 'Loan against loan', description: 'get liquidity against your property at best interest rate ', icon: 'lap' },
+        { title: 'Loan against property', description: 'get liquidity against your property at best interest rate ', icon: 'lap' },
     ];
 
     return (
