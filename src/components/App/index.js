@@ -8,6 +8,8 @@ import SignIn from '../Authentication/SignIn';
 import SignOut from '../Authentication/SignOut';
 import MyAccount from '../MyAccount/MyAccount';
 import Apply from '../Apply'
+import WhatsAppIcon from '../Whatsapp/index.js'
+
 
 
 const App = () => {
@@ -23,6 +25,7 @@ const App = () => {
         <Route path="/account" element={<MyAccount />} />
         <Route path="/Apply" element={< Apply/>} />
       </Routes>
+      <WhatsAppIcon />
       <Footer/>
     </Router>
   );
