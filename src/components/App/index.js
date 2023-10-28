@@ -9,6 +9,7 @@ import SignOut from '../Authentication/SignOut';
 import MyAccount from '../MyAccount/MyAccount';
 import Apply from '../Apply'
 import WhatsAppIcon from '../Whatsapp/index.js'
+import SubmittedForms from '../Data/PasswordPrompt.js'
 
 
 
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/SignOut" element={<SignOut />} />
         <Route path="/account" element={<MyAccount />} />
         <Route path="/Apply" element={< Apply/>} />
+        <Route path="/admin" element={<SubmittedForms />} />
       </Routes>
       <WhatsAppIcon />
       <Footer/>
