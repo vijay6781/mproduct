@@ -7,10 +7,10 @@ import WhyChooseBarbieLoan from '../Why';
 import '../Why/WhyChooseBarbieLoan.css';
 import LoanFAQSection from '../Faq/index.js';
 
+
 const Home = () => {
   return (
     
-      
      <div>
       <Banner imageSrc={bannerImage} text="Easy way to take loan" text1="Fast Loan" />
       {/* <DisplayCard/> */}
