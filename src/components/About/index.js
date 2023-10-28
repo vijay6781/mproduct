@@ -5,7 +5,7 @@ function About() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-screen-lg">
-        <div className="bg-gradient-to-r from-cyan-400 to-orange-500 bg-opacity-90 backdrop-blur-md rounded-lg p-6 text-center text-white">
+        <div className="bg-gradient-to-r from-cyan-400 to-orange-500 bg-opacity-90 backdrop-blur-md rounded-lg p-6 text-center text-white mt-2">
           <FaStar className="text-5xl mb-4 text-yellow-400" />
           <h2 className="text-2xl font-bold mb-2">Competitive Rates</h2>
           <p>
@@ -26,7 +26,7 @@ function About() {
             Your financial security is our utmost priority. We employ state-of-the-art security measures to safeguard your financial information.
           </p>
         </div>
-        <div className="bg-gradient-to-r from-cyan-400 to-orange-500 bg-opacity-90 backdrop-blur-md rounded-lg p-6 text-center text-white">
+        <div className="bg-gradient-to-r from-cyan-400 to-orange-500 bg-opacity-90 backdrop-blur-md rounded-lg p-6 text-center text-white mb-2">
           <FaHeart className="text-5xl mb-4 text-red-400" />
           <h2 className="text-2xl font-bold mb-2">Empowerment</h2>
           <p>
