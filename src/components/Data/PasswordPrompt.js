@@ -21,26 +21,28 @@ function SubmittedForms() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      try {
-        const formsSnapshot = await firestore
-          .collection('loan')
-          .orderBy('Date', 'desc')
-          .get();
-        const formsData = formsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setForms(formsData);
-      } catch (error) {
-        console.error('Error fetching forms:', error);
-      } finally {
-        setLoading(false);
+      if (user) {
+        setLoading(true);
+        try {
+          const formsSnapshot = await firestore
+            .collection('loan')
+            .orderBy('Date', 'desc')
+            .get();
+          const formsData = formsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setForms(formsData);
+        } catch (error) {
+          console.error('Error fetching forms:', error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   const handlePasswordSubmit = () => {
     const correctdata = process.env.REACT_APP_FIREBASE_API_KEY;
@@ -90,7 +92,7 @@ function SubmittedForms() {
           </button>
         </div>
       )}
-      {correctPassword && forms.length > 0 && (
+      {user && correctPassword && forms.length > 0 && (
         <div className="space-y-4">
            {forms.map((form) => (
             <div key={form.id} className="bg-white p-4 shadow rounded">
