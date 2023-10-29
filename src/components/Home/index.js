@@ -9,11 +9,11 @@ import LoanFAQSection from '../Faq/index.js';
 import EMIcalculator from '../Emi'
 
 
-const Home = () => {
+const Home = () => {                
   return (
     
      <div>
-      <Banner imageSrc={bannerImage} text="Easy way to take loan" text1="Fast Loan" />
+      <Banner imageSrc={bannerImage} text="Low interest rate instant loan" text1="Easy way to take loan" />
       {/* <DisplayCard/> */}
       <CardList/>
       <EMIcalculator/>

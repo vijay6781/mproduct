@@ -26,10 +26,10 @@
   top: 70%;
   left: 1rem;
   transform: translateY(-50%);
-  font-size: 1.0rem;
+  font-size: 1.4rem;
   font-weight: bold;
   /* Apply gradient background to text */
-  background-image: linear-gradient(to right, #1c04f4, #02ffab);
+  background-image: linear-gradient(to right, #05eeff, #fbfbfb);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent; /* Make text transparent */
