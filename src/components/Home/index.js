@@ -6,6 +6,7 @@ import CardList from '../MyCard';
 import WhyChooseBarbieLoan from '../Why';
 import '../Why/WhyChooseBarbieLoan.css';
 import LoanFAQSection from '../Faq/index.js';
+import EMIcalculator from '../Emi'
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <Banner imageSrc={bannerImage} text="Easy way to take loan" text1="Fast Loan" />
       {/* <DisplayCard/> */}
       <CardList/>
+      <EMIcalculator/>
       <WhyChooseBarbieLoan/>
       <LoanFAQSection/>
       </div>

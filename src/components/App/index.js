@@ -10,6 +10,7 @@ import MyAccount from '../MyAccount/MyAccount';
 import Apply from '../Apply'
 import WhatsAppIcon from '../Whatsapp/index.js'
 import SubmittedForms from '../Data/PasswordPrompt.js'
+import EMICalculator from '../Emi'
 
 
 
@@ -26,6 +27,8 @@ const App = () => {
         <Route path="/account" element={<MyAccount />} />
         <Route path="/Apply" element={< Apply/>} />
         <Route path="/admin" element={<SubmittedForms />} />
+        <Route path="/emi" element={<EMICalculator />} />
+
       </Routes>
       <WhatsAppIcon />
       <Footer/>
