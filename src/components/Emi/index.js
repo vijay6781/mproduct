@@ -11,7 +11,7 @@ function EMIcalculator() {
   const emiValue = principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
   const interestValue = Math.round(emiValue * n - principal);
   const emi = Math.round(emiValue);
-  const totalPayable = emi * n;
+  const totalPayable = interestValue+principal ;
 
   const handlePrincipalChange = (e) => {
     const newPrincipal = parseInt(e.target.value);
