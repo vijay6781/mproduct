@@ -17,10 +17,12 @@ function Apply() {
   const [mobileNumber, setMobileNumber] = useState('');
   const [loanAmount, setLoanAmount] = useState('');
   const [email, setEmail] = useState('');
+  const [monthlyIncome, setMonthlyIncome] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [mobileError, setMobileError] = useState('');
   const [loanAmountError, setLoanAmountError] = useState('');
-  const [emailError,setEmailError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [incomeError, setIncomeError] = useState('');
   const [incomeSource, setIncomeSource] = useState('');
   const [selectedLoanAmount, setSelectedLoanAmount] = useState('');
   const [filteredLoanAmounts, setFilteredLoanAmounts] = useState([]);
@@ -66,6 +68,7 @@ function Apply() {
       setMobileError('');
       setLoanAmountError('');
       setEmailError('');
+      setIncomeError('');
 
       if (!mobileNumber) {
         setMobileError('Please fill in the Mobile Number');
@@ -79,10 +82,10 @@ function Apply() {
         setEmailError('Please fill in the Email Address');
         return;
       }
-      // if (!selectedCity) {
-      //   setCityError('Please select a city');
-      //   return;
-      // }
+      if (!monthlyIncome) {
+        setIncomeError('Please fill in the Monthly Income');
+        return;
+      }
 
       await firestore.collection('loan').add({
         name,
@@ -90,6 +93,7 @@ function Apply() {
         loanAmount: selectedLoanAmount,
         email,
         incomeSource,
+        monthlyIncome,
         city: selectedCity,
         Date: firebase.firestore.FieldValue.serverTimestamp(),
       });
@@ -111,7 +115,7 @@ function Apply() {
   }, [submitted, navigate]);
 
   return (
-    <div className="flex items-center justify-center ml-1 mr-1 mb-20 mt-1 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex items-center justify-center ml-1 mr-1 mb-32 mt-1 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
@@ -171,6 +175,9 @@ function Apply() {
               required
             />
             {emailError && <div className="error-message">{emailError}</div>}
+            
+            {incomeError && <div className="error-message">{incomeError}</div>}
+
             <label className="apply-label">Income Source:</label>
             <select
               value={incomeSource}
@@ -181,6 +188,14 @@ function Apply() {
               <option value="salary">Salary</option>
               <option value="business">Business</option>
             </select>
+            <label className="apply-label">Monthly Income:</label>
+            <input
+              type="text"
+              value={monthlyIncome}
+              onChange={(e) => setMonthlyIncome(e.target.value)}
+              className="apply-input"
+              required
+            />
 
             <label className="apply-label">City:</label>
             <input

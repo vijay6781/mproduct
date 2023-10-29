@@ -4,15 +4,28 @@ import { AuthProvider } from '../Auth';
 
 function Navigation() {
   return (
-    <AuthProvider> {/* Wrap your component with AuthProvider */}
-      <nav className="flex flex-wrap items-center justify-center md:justify-end py-2.5 bg-gradient-to-r from-blue-300 to-blue-300">
-        <a href="/" className="mr-4 mb-2 md:mb-0 text-black font-bold text-lg md:text-2xl">Home</a>
-        <a href="/About" className="mr-4 mb-2 md:mb-0 text-black font-bold text-lg md:text-2xl">About</a>
-        <a href="/admin" className="mr-4 mb-2 md:mb-0 text-black font-bold text-lg md:text-2xl">Admin</a>
-        <SignIn/> {/* Render the SignIn component here */}
+    <AuthProvider>
+      <nav className="flex items-center justify-between p-3 bg-gray-400 text-white">
+        <div className="flex items-center">
+          {/* Logo */}
+          <a href="/" className="block">
+            <img src={require('../../Assests/Image/BarbieLogo.png')} alt="Logo" className="h-8 w-8 rounded-full mr-3 border border-white" />
+          </a>
+
+          {/* Navigation Links */}
+          <NavLink href="/emi" text="EMI-calc" />
+          <NavLink href="/admin" text="Admin" />
+        </div>
+
+        {/* Sign In Button */}
+        <SignIn />
       </nav>
     </AuthProvider> 
   );
 }
+
+const NavLink = ({ href, text }) => (
+  <a href={href} className="mr-4 text-lg font-bold">{text}</a>
+);
 
 export default Navigation;
