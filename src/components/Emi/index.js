@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { PieChart } from 'react-minimal-pie-chart';
 
 function EMIcalculator() {
   const [principal, setPrincipal] = useState(500000);
@@ -8,8 +9,9 @@ function EMIcalculator() {
   const r = interest / (12 * 100);
   const n = tenure;
   const emiValue = principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
-  const interestValue = emiValue * n - principal;
+  const interestValue = Math.round(emiValue * n - principal);
   const emi = Math.round(emiValue);
+  const totalPayable = emi * n;
 
   const handlePrincipalChange = (e) => {
     const newPrincipal = parseInt(e.target.value);
@@ -25,6 +27,11 @@ function EMIcalculator() {
     const newTenure = parseInt(e.target.value);
     setTenure(newTenure);
   };
+
+  const pieChartData = [
+    { title: 'Principal', value: principal, color: '#00ff00' },
+    { title: 'Interest', value: interestValue, color: '#8b008b' },
+  ];
 
   return (
     <div className="container mx-auto p-8 max-w-2xl">
@@ -74,7 +81,27 @@ function EMIcalculator() {
         </div>
       </div>
 
-      <p className="mt-4 text-center text-2xl font-bold">EMI: ₹{emi.toLocaleString()}</p>
+      <p className="text-center text-pink-700 text-xl font-bold">EMI amount: ₹{emi.toLocaleString()}</p>
+      <p className="text-center text-xl font-bold">Total Interest: ₹{interestValue.toLocaleString()}</p>
+      <p className="text-center text-xl font-bold">Total Payment: ₹{totalPayable.toLocaleString()}</p>
+
+      <div className="flex justify-center">
+        <PieChart
+          data={pieChartData}
+          label={({ dataEntry }) => `${Math.round(dataEntry.percentage)}%`}
+          labelPosition={50}
+          labelStyle={{ fill: '#fff', fontSize: '0.2em' }}
+          radius={35}
+        />
+         <div className="flex items-center justify-center mb-4">
+        <div className="bg-green-500 h-2 w-3 mr-2"></div>
+        <p className="text-sm font-bold">Principal</p>
+        <div className="bg-pink-500 h-2 w-3 ml-2"></div>
+        <p className="text-sm font-bold">Interest</p>
+      </div>
+
+      </div>
+      
     </div>
   );
 }
