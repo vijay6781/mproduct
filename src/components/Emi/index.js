@@ -28,7 +28,7 @@ function EMIcalculator() {
 
   return (
     <div className="container mx-auto p-8 max-w-2xl">
-      <h1 className="text-2xl mb-4 font-bold text-center">EMI Calculator</h1>
+      <h1 className="text-2xl mb-4 font-bold text-center text-green-700">EMI Calculator</h1>
       <div className="flex flex-wrap justify-between mb-4">
         <div className="w-full md:w-1/3 mb-4 md:mb-0">
           <label className="block text-gray-700 text-sm font-bold mb-2">
