@@ -65,6 +65,8 @@ function SubmittedForms() {
   };
 
   return (
+    <>
+    <div className="flex justify-center font-bold mt-2 text-2xl">Admin Panel</div>
     <div className="max-w-3xl mx-auto mt-8 p-4">
       {loading && <div>Loading...</div>}
       {!user && (
@@ -101,6 +103,7 @@ function SubmittedForms() {
               <p><span className="font-bold">Loan Amount:</span> {form.loanAmount}</p>
               <p><span className="font-bold">Email:</span> {form.email}</p>
               <p><span className="font-bold">Income Source:</span> {form.incomeSource}</p>
+              <p><span className="font-bold">Monthly Income :</span> {form.monthlyIncome}</p>
               <p><span className="font-bold">City:</span> {form.city}</p>
               <p><span className="font-bold">Date:</span> {new Date(form.Date.toDate()).toLocaleString()}</p>
             </div>
@@ -108,6 +111,7 @@ function SubmittedForms() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

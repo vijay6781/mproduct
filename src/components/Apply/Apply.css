@@ -73,3 +73,8 @@
   font-size: 9px;
   margin-top:2px;
 }
+@media (min-width: 768px) {
+  .apply-container {
+    max-width: 500px; /* Adjust the max-width as needed */
+  }
+}
