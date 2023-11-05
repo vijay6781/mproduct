@@ -13,7 +13,7 @@ function Navigation() {
           </a>
 
           {/* Navigation Links */}
-          <NavLink href="/emi" text="EMI-calc" />
+          <NavLink href="/emi-calculator" text="EMI-calc" />
           <NavLink href="/admin" text="Admin" />
         </div>
 
