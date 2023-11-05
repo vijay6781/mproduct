@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/account" element={<MyAccount />} />
         <Route path="/Apply" element={< Apply/>} />
         <Route path="/admin" element={<SubmittedForms />} />
-        <Route path="/emi" element={<EMICalculator />} />
+        <Route path="/emi-calculator" element={<EMICalculator />} />
 
       </Routes>
       <WhatsAppIcon />
