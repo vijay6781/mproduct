@@ -8,9 +8,11 @@ import SignIn from '../Authentication/SignIn';
 import SignOut from '../Authentication/SignOut';
 import MyAccount from '../MyAccount/MyAccount';
 import Apply from '../Apply'
+import Form from '../Form'
 import WhatsAppIcon from '../Whatsapp/index.js'
 import SubmittedForms from '../Data/PasswordPrompt.js'
 import EMICalculator from '../Emi'
+
 
 
 
@@ -28,6 +30,8 @@ const App = () => {
         <Route path="/Apply" element={< Apply/>} />
         <Route path="/admin" element={<SubmittedForms />} />
         <Route path="/emi-calculator" element={<EMICalculator />} />
+        <Route path="/Form" element={<Form />} />
+
 
       </Routes>
       <WhatsAppIcon />

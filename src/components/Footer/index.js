@@ -58,7 +58,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="mb-4">
             <h6 className="mb-2 font-semibold uppercase ml-3">
-              Barbie Loan
+              credit paisa
             </h6>
             <ul className="list-disc pl-6">
               <li>Organize and manage your loans</li>
@@ -96,7 +96,7 @@ const Footer = () => {
           className="font-semibold text-neutral-600 dark:text-neutral-400"
           href="#"
         >
-          Barbie Loan
+          credit paisa
         </a>
       </div>
       <div className="flex items-center justify-center space-x-2">
