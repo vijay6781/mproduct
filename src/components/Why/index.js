@@ -4,7 +4,7 @@ import { FaHandshake, FaMoneyBillAlt, FaClock } from 'react-icons/fa';
 const WhyChooseBarbieLoan = () => {
   return (
     <div className="bg-gradient-to-r from-teal-400 via-blue-600 to-green-600 text-white p-8 text-center relative">
-      <h2 className="text-3xl font-bold mb-4">Why Choose BarbieLoan.com?</h2>
+      <h2 className="text-3xl font-bold mb-4">Why Choose CreditPaisa.com?</h2>
       <div className="flex flex-col lg:flex-row justify-center gap-6">
         <div className="flex-1 bg-white bg-opacity-80 p-6 rounded-lg transition-transform transform hover:scale-105">
           <FaHandshake className="text-5xl mx-auto mb-4 text-teal-400" />

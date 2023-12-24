@@ -84,7 +84,7 @@ const Footer = () => {
             </h6>
             <ul className="list-disc pl-6">
               <li><strong>Address:</strong>Gurugram, India</li>
-              <li className="mt-2"><strong className=''>Email:</strong> info@barbieloan.com</li>
+              <li className="mt-2"><strong className=''>Email:</strong> info@creditpaisa.com</li>
             </ul>
           </div>
         </div>
@@ -96,7 +96,7 @@ const Footer = () => {
           className="font-semibold text-neutral-600 dark:text-neutral-400"
           href="#"
         >
-          credit paisa
+          Credit Paisa
         </a>
       </div>
       <div className="flex items-center justify-center space-x-2">
