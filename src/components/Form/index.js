@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { firebaseConfig } from '../Authentication/firebase.js';
 import predefinedLoanAmounts from '../../constants/LoanAmount';
 import predefinedCities from '../../constants/Cities';
+import { FaGoogle } from "react-icons/fa";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -91,10 +92,10 @@ function Apply() {
       }
 
       await firestore.collection('loan').add({
-        name,
+        name:user.displayName,
         mobileNumber,
         loanAmount: selectedLoanAmount,
-        email,
+        email:user.email,
         incomeSource,
         monthlyIncome,
         city: selectedCity,
@@ -144,29 +145,24 @@ function Apply() {
   }, [submitted, navigate]);
 
   return (
-    // <div className="flex items-center justify-center ml-1 mr-1 mb-32 mt-1 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
-      <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
-        {!user ? (
-          <button onClick={handleGoogleSignIn}>Sign in with Google</button>
-        ) : (
-          <>
-            <div className="flex items-center justify-center">
-      <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
-        {submitted ? (
-          <div className="thank-you">
-            <h2 className="apply-title">Thank You!</h2>
-            <p>Your loan application has been submitted successfully.</p>
-          </div>
-        ) : (
-          <>
-            <h2 className="apply-title">Apply for a Loan</h2>
-            <label className="apply-label">Name:</label>
+<div className={`apply-container ${submitted ? 'submitted' : ''}`}>
+      {!user ? (
+        <button onClick={handleGoogleSignIn} className="google-sign-in-button">
+          Sign in with Google
+        </button>
+      ) : (
+        <>
+          {!submitted ? (
+            <div className="apply-section">
+              <h2 className="apply-title">Apply for a Loan</h2>
+              <label className="apply-label">Name:</label>
             <input
               type="text"
-              value={user.displayName || ''}
+              value={user.displayName} 
               onChange={(e) => setName(e.target.value)}
               className="apply-input"
               required
+              disabled
             />
             <label className="apply-label">Mobile Number:</label>
             <input
@@ -204,10 +200,11 @@ function Apply() {
             <label className="apply-label">Email Id:</label>
             <input
                type="email"
-               value={user.email || ''}
+               value={user.email}
                onChange={(e) => setEmail(e.target.value)}
                className="apply-input"
                required
+               disabled
             />
             {/* {emailError && <div className="error-message">{emailError}</div>} */}
             
@@ -252,17 +249,19 @@ function Apply() {
               </div>
             )}
 
-            <button onClick={handleApply} className="apply-button">
-              Apply
-            </button>
-          </>
-        )}
-      </div>
-    </div>     
-         </>
-        )}
-      </div>
-    // </div>
+              <button onClick={handleApply} className="apply-button">
+                Apply
+              </button>
+            </div>
+          ) : (
+            <div className="thank-you">
+              <h2 className="apply-title">Thank You!</h2>
+              <p>Your loan application has been submitted successfully.</p>
+            </div>
+          )}
+        </>
+      )}
+    </div>
   );
 }
 

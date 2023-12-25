@@ -92,10 +92,7 @@ const Footer = () => {
 
       <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
         <span>&copy; {new Date().getFullYear()} Copyright:</span>
-        <a
-          className="font-semibold text-neutral-600 dark:text-neutral-400"
-          href="#"
-        >
+        <a className="font-semibold text-neutral-600 dark:text-neutral-400" href="#">
           Credit Paisa
         </a>
       </div>

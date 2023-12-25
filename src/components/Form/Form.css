@@ -1,28 +1,53 @@
-/* Apply.css */
 
 .apply-container {
-  background: linear-gradient(to bottom, rgb(30, 156, 210), #4fabe0); /* Green to Pink */
-  padding: 20px;
+  padding: 10px;
   border-radius: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  /* margin: auto auto;  */
   margin-bottom: 20px;
   margin-top: 20px;
-  width: 100%;
+  width: 80%;
   max-width: 400px;
+  background: rgb(241, 237, 237);
+}
+/* Form.css */
+
+.google-sign-in-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  background-color: rgb(11, 126, 164);
+  color: white;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 0;
+  display: block;
+  width: 100%;
 }
 
+.google-sign-in-button span {
+  margin-left: 10px;
+}
+
+.google-sign-in-button:hover {
+  opacity: 0.9;
+}
+
+
 .apply-title {
+  font-family: Arial, sans-serif; /* Change the font family */
   font-size: 24px;
   font-weight: bold;
-  color: white;
+  color: rgb(8, 158, 233);
   margin-bottom: 20px;
   text-align: center;
 }
 
 .apply-label {
+  font-family: Arial, sans-serif;
   display: block;
-  color: white;
+  color: rgb(20, 5, 130);
   margin-bottom: 5px;
 }
 

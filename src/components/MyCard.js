@@ -8,7 +8,7 @@ const Card = ({ title, description, icon }) => {
     const navigate = useNavigate();
 
     const handleApplyClick = () => {
-        navigate('/apply');
+        navigate('/form');
     };
 
     const renderIcon = () => {
