@@ -1,108 +1,268 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import './Form.css';
+import { useNavigate } from 'react-router-dom';
 import { firebaseConfig } from '../Authentication/firebase.js';
 import predefinedLoanAmounts from '../../constants/LoanAmount';
 import predefinedCities from '../../constants/Cities';
 
 firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
 const firestore = firebase.firestore();
 
 function Apply() {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    name: '',
-    mobileNumber: '',
-    loanAmount: '',
-    email: '',
-    monthlyIncome: '',
-    incomeSource: '',
-    city: '',
-  });
+  const [name, setName] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [loanAmount, setLoanAmount] = useState('');
+  const [email, setEmail] = useState('');
+  const [monthlyIncome, setMonthlyIncome] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [mobileError, setMobileError] = useState('');
+  const [loanAmountError, setLoanAmountError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [incomeError, setIncomeError] = useState('');
+  const [incomeSource, setIncomeSource] = useState('');
+  const [selectedLoanAmount, setSelectedLoanAmount] = useState('');
+  const [filteredLoanAmounts, setFilteredLoanAmounts] = useState([]);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [filteredCities, setFilteredCities] = useState([]);
+  const [user, setUser] = useState(null); // State to hold user data
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const navigate = useNavigate();
+
+  const handleLoanAmountChange = (input) => {
+    const inputValue = input.toLowerCase();
+    const filtered = inputValue
+      ? predefinedLoanAmounts.filter(
+          (amount) => amount.toLowerCase().startsWith(inputValue)
+        )
+      : [];
+    setFilteredLoanAmounts(filtered);
+    setSelectedLoanAmount(input);
   };
 
-  const handleContinue = () => {
-    if (step === 1 && formData.name.trim() === '') return; // Validation for Name field
-    if (step === 2 && formData.mobileNumber.trim().length < 10) return; // Validation for Mobile Number length
-    // Add more validations for other steps if needed
-
-    setStep(step + 1);
+  // ... (Other handle functions)
+  const handleLoanAmountSelect = (amount) => {
+    setSelectedLoanAmount(amount);
+    setFilteredLoanAmounts([]);
   };
 
-  const handlePrevStep = () => setStep(step - 1);
+  const handleCityChange = (input) => {
+    const inputValue = input.toLowerCase();
+    const filtered = inputValue
+      ? predefinedCities.filter(
+          (city) => city.toLowerCase().startsWith(inputValue)
+        )
+      : [];
+    setFilteredCities(filtered);
+    setSelectedCity(input);
+  };
 
-  const renderFormStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <>
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="border rounded px-2 py-1 mb-4 w-full"
-              placeholder="Enter your full name"
-            />
-            {formData.name.trim() !== '' && (
-              <button onClick={handleContinue} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-                Continue
-              </button>
-            )}
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <label>Mobile Number:</label>
-            <input
-              type="tel"
-              name="mobileNumber"
-              value={formData.mobileNumber}
-              onChange={handleInputChange}
-              className="border rounded px-2 py-1 mb-4 w-full"
-              placeholder="Enter your mobile number"
-            />
-            <div className="flex justify-between">
-              {step > 1 && (
-                <button onClick={handlePrevStep} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-1/3">
-                  Previous
-                </button>
-              )}
-              {formData.mobileNumber.trim().length >= 10 && (
-                <button onClick={handleContinue} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-2/3">
-                  Continue
-                </button>
-              )}
-            </div>
-          </>
-        );
-      // Handle other steps similarly
-      default:
-        return (
-          <>
-            <h2>Thank You!</h2>
-            <p>Your loan application has been submitted successfully.</p>
-          </>
-        );
+  const handleCitySelect = (city) => {
+    setSelectedCity(city);
+    setFilteredCities([]);
+  };
+
+  const handleApply = async () => {
+    try {
+      setMobileError('');
+      setLoanAmountError('');
+      setEmailError('');
+      setIncomeError('');
+
+      if (!mobileNumber) {
+        setMobileError('Please fill in the Mobile Number');
+        return;
+      }
+      if (!selectedLoanAmount) {
+        setLoanAmountError('Please fill in the loan amount');
+        return;
+      }
+      // if (!email) {
+      //   setEmailError('Please fill in the Email Address');
+      //   return;
+      // }
+      if (!monthlyIncome) {
+        setIncomeError('Please fill in the Monthly Income');
+        return;
+      }
+
+      await firestore.collection('loan').add({
+        name,
+        mobileNumber,
+        loanAmount: selectedLoanAmount,
+        email,
+        incomeSource,
+        monthlyIncome,
+        city: selectedCity,
+        Date: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      setSubmitted(true);
+    } catch (error) {
+      alert('Error: ' + error.message);
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await auth.signInWithPopup(provider);
+      setUser(result.user);
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      setUser(null);
+    } catch (error) {
+      console.error('Sign-Out Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (submitted) {
+      const redirectTimeout = setTimeout(() => {
+        navigate('/');
+      }, 3000);
+
+      return () => clearTimeout(redirectTimeout);
+    }
+  }, [submitted, navigate]);
+
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="apply-container p-8 bg-gray-200 rounded shadow-lg w-96">
-        {renderFormStep()}
+    // <div className="flex items-center justify-center ml-1 mr-1 mb-32 mt-1 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+      <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
+        {!user ? (
+          <button onClick={handleGoogleSignIn}>Sign in with Google</button>
+        ) : (
+          <>
+            <div className="flex items-center justify-center">
+      <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
+        {submitted ? (
+          <div className="thank-you">
+            <h2 className="apply-title">Thank You!</h2>
+            <p>Your loan application has been submitted successfully.</p>
+          </div>
+        ) : (
+          <>
+            <h2 className="apply-title">Apply for a Loan</h2>
+            <label className="apply-label">Name:</label>
+            <input
+              type="text"
+              value={user.displayName || ''}
+              onChange={(e) => setName(e.target.value)}
+              className="apply-input"
+              required
+            />
+            <label className="apply-label">Mobile Number:</label>
+            <input
+              type="tel"
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
+              className="apply-input"
+              required
+            />
+            {mobileError && <div className="error-message">{mobileError}</div>}
+            <label className="apply-label">Loan Amount:</label>
+            <input
+              type="text"
+              value={selectedLoanAmount}
+              onChange={(e) => handleLoanAmountChange(e.target.value)}
+              className="apply-input"
+              placeholder=' Rs in Lakh'
+            />
+            {loanAmountError && (
+              <div className="error-message">{loanAmountError}</div>
+            )}
+
+            {selectedLoanAmount.length > 0 && filteredLoanAmounts.length > 0 && (
+              <div className="loan-amount-suggestions text-white">
+                <ul>
+                  {filteredLoanAmounts.map((amount, index) => (
+                    <li key={index} onClick={() => handleLoanAmountSelect(amount)}>
+                      {amount}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <label className="apply-label">Email Id:</label>
+            <input
+               type="email"
+               value={user.email || ''}
+               onChange={(e) => setEmail(e.target.value)}
+               className="apply-input"
+               required
+            />
+            {/* {emailError && <div className="error-message">{emailError}</div>} */}
+            
+
+            <label className="apply-label">Income Source:</label>
+            <select
+              value={incomeSource}
+              onChange={(e) => setIncomeSource(e.target.value)}
+              className="apply-input"
+            >
+              <option value="">Select...</option>
+              <option value="salary">Salary</option>
+              <option value="business">Business</option>
+            </select>
+            <label className="apply-label">Monthly Income:</label>
+            <input
+              type="text"
+              value={monthlyIncome}
+              onChange={(e) => setMonthlyIncome(e.target.value)}
+              className="apply-input"
+              required
+            />
+            {incomeError && <div className="error-message">{incomeError}</div>}
+            
+            <label className="apply-label">City:</label>
+            <input
+              type="text"
+              value={selectedCity}
+              onChange={(e) => handleCityChange(e.target.value)}
+              className="apply-input"
+              placeholder="Enter City"
+            />
+            {selectedCity.length > 0 && filteredCities.length > 0 && (
+              <div className="city-suggestions text-white">
+                <ul>
+                  {filteredCities.map((city, index) => (
+                    <li key={index} onClick={() => handleCitySelect(city)}>
+                      {city}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <button onClick={handleApply} className="apply-button">
+              Apply
+            </button>
+          </>
+        )}
       </div>
-    </div>
+    </div>     
+         </>
+        )}
+      </div>
+    // </div>
   );
 }
 
