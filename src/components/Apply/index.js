@@ -176,7 +176,6 @@ function Apply() {
             />
             {emailError && <div className="error-message">{emailError}</div>}
             
-            {incomeError && <div className="error-message">{incomeError}</div>}
 
             <label className="apply-label">Income Source:</label>
             <select
@@ -196,7 +195,7 @@ function Apply() {
               className="apply-input"
               required
             />
-
+         {incomeError && <div className="error-message">{incomeError}</div>}
             <label className="apply-label">City:</label>
             <input
               type="text"
