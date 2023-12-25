@@ -186,7 +186,7 @@ function Apply() {
             )}
 
             {selectedLoanAmount.length > 0 && filteredLoanAmounts.length > 0 && (
-              <div className="loan-amount-suggestions text-white">
+              <div className="loan-amount-suggestions text-black">
                 <ul>
                   {filteredLoanAmounts.map((amount, index) => (
                     <li key={index} onClick={() => handleLoanAmountSelect(amount)}>
@@ -238,7 +238,7 @@ function Apply() {
               placeholder="Enter City"
             />
             {selectedCity.length > 0 && filteredCities.length > 0 && (
-              <div className="city-suggestions text-white">
+              <div className="city-suggestions text-black">
                 <ul>
                   {filteredCities.map((city, index) => (
                     <li key={index} onClick={() => handleCitySelect(city)}>
