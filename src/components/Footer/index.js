@@ -8,7 +8,7 @@ const Footer = () => {
           <span>Get connected with us on social networks:</span>
         </div>
         <div className="flex justify-center">
-        <a href="https://instagram.com/barbieloanofficial?igshid=NzZlODBkYWE4Ng==" class="mr-6 text-neutral-600 dark:text-neutral-200">
+        <a href="https://www.instagram.com/creditpaisaofficial?igsh=OGQ5ZDc2ODk2ZA%3D%3D&utm_source=qr" class="mr-6 text-neutral-600 dark:text-neutral-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-4 w-4"
