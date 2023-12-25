@@ -9,7 +9,7 @@ function Navigation() {
         <div className="flex items-center">
           {/* Logo */}
           <a href="/" className="block">
-            <img src={require('../../Assests/Image/logo5.png')} alt="Logo" className="h-10 w-12 rounded-full mr-3 border border-white" />
+            <img src={require('../../Assests/Image/logo5.png')} alt="Logo" className="h-10 w-14 rounded-full mr-3 border border-white" />
           </a>
 
           {/* Navigation Links */}
