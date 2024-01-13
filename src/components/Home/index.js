@@ -13,7 +13,7 @@ const Home = () => {
   return (
     
      <div>
-      <Banner imageSrc={bannerImage} text="India's trusted plateform for loan" text1="Personal loan Start from 10.5%*" />
+      <Banner imageSrc={bannerImage} text="India's trusted plateform for loan" text1="Get Personal loan at low interest rate" />
       {/* <DisplayCard/> */}
       <CardList/>
       <EMIcalculator/>

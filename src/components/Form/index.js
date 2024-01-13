@@ -146,11 +146,11 @@ function Apply() {
 
   return (
 <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
-      {!user ? (
+      {/* {!user ? (
         <button onClick={handleGoogleSignIn} className="google-sign-in-button">
           Sign in with Google
         </button>
-      ) : (
+      ) : ( */}
         <>
           {!submitted ? (
             <div className="apply-section">
@@ -158,11 +158,11 @@ function Apply() {
               <label className="apply-label">Name:</label>
             <input
               type="text"
-              value={user.displayName} 
+              value={name} 
               onChange={(e) => setName(e.target.value)}
               className="apply-input"
               required
-              disabled
+              // disabled
             />
             <label className="apply-label">Mobile Number:</label>
             <input
@@ -200,11 +200,11 @@ function Apply() {
             <label className="apply-label">Email Id:</label>
             <input
                type="email"
-               value={user.email}
+               value={email}
                onChange={(e) => setEmail(e.target.value)}
                className="apply-input"
                required
-               disabled
+              //  disabled
             />
             {/* {emailError && <div className="error-message">{emailError}</div>} */}
             
@@ -260,7 +260,7 @@ function Apply() {
             </div>
           )}
         </>
-      )}
+      {/* )} */}
     </div>
   );
 }
