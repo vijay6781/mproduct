@@ -113,10 +113,22 @@ function Apply() {
     try {
       const result = await auth.signInWithPopup(provider);
       setUser(result.user);
+      setEmail(user.email);
+      setName(user.displayName);
     } catch (error) {
       console.error('Google Sign-In Error:', error);
     }
   };
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        setName(currentUser.displayName || '');
+        setEmail(currentUser.email || '');
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSignOut = async () => {
     try {
