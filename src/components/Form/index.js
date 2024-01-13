@@ -92,10 +92,10 @@ function Apply() {
       }
 
       await firestore.collection('loan').add({
-        name:user.displayName,
+        name,
         mobileNumber,
         loanAmount: selectedLoanAmount,
-        email:user.email,
+        email,
         incomeSource,
         monthlyIncome,
         city: selectedCity,
