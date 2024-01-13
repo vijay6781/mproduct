@@ -155,15 +155,49 @@ function Apply() {
           {!submitted ? (
             <div className="apply-section">
               <h2 className="apply-title">Apply for a Loan</h2>
-              <label className="apply-label">Name:</label>
-            <input
-              type="text"
-              value={name} 
-              onChange={(e) => setName(e.target.value)}
-              className="apply-input"
-              required
-              // disabled
-            />
+              {!user && (
+              <>
+                <label className="apply-label">Name:</label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="apply-input"
+                  required
+                />
+                <label className="apply-label">Email Id:</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="apply-input"
+                  required
+                />
+              </>
+            )}
+            {user && (
+              <>
+                <label className="apply-label">Name:</label>
+                <input
+                  type="text"
+                  value={user.displayName}
+                  onChange={(e) => setName(e.target.value)}
+                  className="apply-input"
+                  required
+                  disabled
+                />
+                <label className="apply-label">Email Id:</label>
+                <input
+                  type="email"
+                  value={user.email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="apply-input"
+                  required
+                  disabled
+                />
+              </>
+            )}
+
             <label className="apply-label">Mobile Number:</label>
             <input
               type="tel"
@@ -197,15 +231,6 @@ function Apply() {
               </div>
             )}
 
-            <label className="apply-label">Email Id:</label>
-            <input
-               type="email"
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-               className="apply-input"
-               required
-              //  disabled
-            />
             {/* {emailError && <div className="error-message">{emailError}</div>} */}
             
 
