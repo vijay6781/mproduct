@@ -12,6 +12,7 @@ import Form from '../Form'
 import WhatsAppIcon from '../Whatsapp/index.js'
 import SubmittedForms from '../Data/PasswordPrompt.js'
 import EMICalculator from '../Emi'
+import PrivacyPolicy from '../PrivacyPolicy'
 
 
 
@@ -31,6 +32,9 @@ const App = () => {
         <Route path="/admin" element={<SubmittedForms />} />
         <Route path="/emi-calculator" element={<EMICalculator />} />
         <Route path="/Form" element={<Form />} />
+        <Route path="/privacy" element={< PrivacyPolicy/>} />
+
+
 
 
       </Routes>
