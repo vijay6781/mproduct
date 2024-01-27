@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
 
             <h2 className="text-xl font-bold mb-2">1. Information We Collect</h2>
             <p className="mb-4">
-                We collect personal information that you voluntarily provide to us when using our services. This may include your name, email address, and any other information you choose to share.
+                We collect personal information that you voluntarily provide to us when using our services. This may include your name, email address, and any other information you choose to share but we don't store  not sensitive information.
             </p>
 
             <h2 className="text-xl font-bold mb-2">2. How We Use Your Information</h2>
