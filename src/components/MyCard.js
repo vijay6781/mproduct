@@ -3,6 +3,7 @@ import { FaHome } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; 
 import { BsFillBuildingsFill, BsBuildingFillUp } from 'react-icons/bs';
 import { FaHandHoldingDollar } from 'react-icons/fa6';
+import GstCard from './GstCard';
 
 const Card = ({ title, description, icon }) => {
     const navigate = useNavigate();
@@ -57,9 +58,11 @@ const CardList = () => {
 
     return (
         <div className="flex flex-wrap justify-center">
+             <GstCard/>
             {cardsData.map((card, index) => (
                 <Card key={index} title={card.title} description={card.description} icon={card.icon} />
             ))}
+           
         </div>
     );
 };
