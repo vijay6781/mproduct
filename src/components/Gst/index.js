@@ -66,12 +66,13 @@ function Gst() {
         return;
       }
 
-      await firestore.collection('website').add({
+     const a= await firestore.collection('website').add({
         name,
         mobileNumber,
         state,
         Date: firebase.firestore.FieldValue.serverTimestamp(),
       });
+      console.log('aaaa',a);
 
       setSubmitted(true);
     } catch (error) {
