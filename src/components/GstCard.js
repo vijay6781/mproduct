@@ -16,7 +16,7 @@ const GstCard = () => {
                 <div className="mb-4">
                     <h2 className="text-xl font-bold">GST Registration</h2>
                 </div>
-                <p className="text-gray-700 text-base">Register for GST and grow your business with ease.</p>
+                <p className="text-gray-700 text-base">Register for GST and grow your business with very nominal charge.</p>
             </div>
             <div className="px-6 py-4 flex justify-center">
                 <button

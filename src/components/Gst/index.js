@@ -66,7 +66,7 @@ function Gst() {
         return;
       }
 
-      await firestore.collection('gst_registration').add({
+      await firestore.collection('website').add({
         name,
         mobileNumber,
         state,
@@ -98,7 +98,7 @@ function Gst() {
   };
 
   return (
-    <div className="flex items-center justify-center ml-1 mr-1 mb-16 mt-14 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
+    <div className="flex items-center justify-center ml-1 mr-1 mb-2 mt-2 h-screen bg-gradient-to-b from-grey-400 to-blue-500">
       <div className={`apply-container ${submitted ? 'submitted' : ''}`}>
         {submitted ? (
           <div className="thank-you">
