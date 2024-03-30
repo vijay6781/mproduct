@@ -6,7 +6,7 @@ const GstCard = () => {
     const navigate = useNavigate();
 
     const handleApplyClick = () => {
-        navigate('/Gst');
+        navigate('/gst');
     };
 
     return (
