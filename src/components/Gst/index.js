@@ -92,7 +92,7 @@ function Gst() {
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      setCountdown(`${hours} : ${minutes.toString().padStart(2, '0')}: ${seconds.toString().padStart(2, '0')}`);
+      setCountdown(`${hours}: ${minutes.toString().padStart(2, '0')}: ${seconds.toString().padStart(2, '0')} ||  only on ₹ 499`);
 
       if (distance < 0) {
         clearInterval(interval);
