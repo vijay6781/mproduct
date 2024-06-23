@@ -14,6 +14,8 @@ import SubmittedForms from '../Data/PasswordPrompt.js'
 import EMICalculator from '../Emi'
 import PrivacyPolicy from '../PrivacyPolicy'
 import Gst from '../Gst'
+import Chat  from '../Chat'
+
 
 
 
@@ -36,6 +38,7 @@ const App = () => {
         <Route path="/Form" element={<Form />} />
         <Route path="/privacy" element={< PrivacyPolicy/>} />
         <Route path="/gst" element={< Gst/>} />
+        <Route path="/chat" element={< Chat/>} />
 
 
 
