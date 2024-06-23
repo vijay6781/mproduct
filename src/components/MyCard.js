@@ -58,7 +58,6 @@ const CardList = () => {
 
     return (
         <div className="flex flex-wrap justify-center">
-             <GstCard/>
             {cardsData.map((card, index) => (
                 <Card key={index} title={card.title} description={card.description} icon={card.icon} />
             ))}
