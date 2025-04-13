@@ -1,31 +1,42 @@
-import React from 'react';
-import { useAuth } from '../Auth'; // Update the path to your AuthContext
-import { signInWithPopup, signOut } from 'firebase/auth'; // Import Firebase authentication methods
-import { auth, provider } from './firebase';
+import React from "react";
+import { useAuth } from "../Auth";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { auth, provider } from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const { user, isLoading } = useAuth(); // Access user and isLoading from the context
+  const { user, isLoading } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignIn = async () => {
     try {
-      // Use Firebase authentication to sign in with Google
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log('User signed in:', user);
+      // const result = await signInWithPopup(auth, provider);
+      // const user = result.user;
+      // const token = await user.getIdToken();
+
+      // localStorage.setItem("user", JSON.stringify(user));
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("photo", user.photoURL);
+
+      console.log("User signed in:", user);
+      navigate("/login"); // Redirect to home
     } catch (error) {
-      console.error('Sign-in error:', error);
+      console.error("Sign-in error:", error.message);
     }
   };
 
   const handleSignOut = async () => {
     try {
-      // Use Firebase authentication to sign out
-      await signOut(auth);
-      console.log('User signed out');
+      // await signOut(auth);
+      // localStorage.clear();
+      // console.log("User signed out");
+      navigate("/login");
     } catch (error) {
-      console.error('Sign-out error:', error);
+      console.error("Sign-out error:", error.message);
     }
   };
+
+  if (isLoading) return <p className="text-center">Loading...</p>;
 
   return (
     <div>
@@ -36,14 +47,20 @@ const SignIn = () => {
           {user ? (
             <div className="relative">
               {/* Render UI for authenticated user */}
-              <button onClick={handleSignOut} className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4  mr-2 rounded-full">
+              <button
+                onClick={handleSignOut}
+                className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4  mr-2 rounded-full"
+              >
                 log out
               </button>
             </div>
           ) : (
             <div>
               {/* Render UI for non-authenticated user */}
-              <button onClick={handleSignIn} className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4  mr-2 rounded-full">
+              <button
+                onClick={handleSignIn}
+                className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4  mr-2 rounded-full"
+              >
                 log in
               </button>
             </div>

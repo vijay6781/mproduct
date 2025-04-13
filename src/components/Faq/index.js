@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const LoanFAQSection = () => {
   const [faq, setFaq] = useState(null);
@@ -6,15 +6,18 @@ const LoanFAQSection = () => {
   const faqs = [
     {
       question: "What types of loans do you offer?",
-      answer: "We offer a variety of loans including personal loans, home loans, business loans, and more - all with competitive interest rates."
+      answer:
+        "We offer a variety of loans including personal loans, home loans, business loans, and more - all with competitive interest rates.",
     },
     {
       question: "How quickly can I get approved for a loan?",
-      answer: "Our streamlined approval process ensures that you can get approved for a loan quickly, often within hours."
+      answer:
+        "Our streamlined approval process ensures that you can get approved for a loan quickly, often within hours.",
     },
     {
       question: "What are your interest rates like?",
-      answer: "We pride ourselves on offering some of the lowest interest rates in the industry to make sure you get the best deal possible."
+      answer:
+        "We pride ourselves on offering some of the lowest interest rates in the industry to make sure you get the best deal possible.",
     },
   ];
 
@@ -34,9 +37,7 @@ const LoanFAQSection = () => {
             >
               {item.question}
             </div>
-            {faq === index && (
-              <div className="text-lg">{item.answer}</div>
-            )}
+            {faq === index && <div className="text-lg">{item.answer}</div>}
           </div>
         ))}
       </div>
