@@ -2,6 +2,7 @@ import Profile from "../components/Profile";
 
 function profile() {
   console.log("phoooo", localStorage.getItem("photo"));
+
   return (
     <div className="p-8 max-w-md mx-auto">
       <Profile
