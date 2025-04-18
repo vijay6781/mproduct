@@ -18,6 +18,8 @@ const Sign_In = () => {
 
       localStorage.setItem("token", idToken);
       localStorage.setItem("photo", user.photoURL || "");
+      localStorage.setItem("name", user.displayName || "");
+      localStorage.setItem("email", user.email || "");
 
       setToken(idToken);
       setUserPhoto(user.photoURL);

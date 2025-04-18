@@ -17,6 +17,7 @@ import Gst from "../Gst";
 import Chat from "../Chat";
 import User from "../../Users/index.js";
 import PrivateRoute from "../../PrivateRoute";
+import Profile from "../../Profile/index.js";
 
 const App = () => {
   // 🔒 Routes that require login
@@ -31,6 +32,7 @@ const App = () => {
     { path: "/privacy", element: <PrivacyPolicy /> },
     { path: "/gst", element: <Gst /> },
     { path: "/chat", element: <Chat /> },
+    { path: "/profile", element: <Profile /> },
   ];
 
   return (
